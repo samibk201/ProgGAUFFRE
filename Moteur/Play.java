@@ -14,7 +14,7 @@ import java.util.Scanner;
  */
 public class Play {
     
-    
+    private int player=0;
     static Play play=null;
 
     private Play() {
@@ -51,23 +51,31 @@ public class Play {
         int x,y;
         while(gauffre[0][0]){
             //int x=-1,y=-1;
+            int gagnant = player;
             boolean b;
             int h=affichage.getHeight(), w=affichage.getWidth(); 
-            
-            System.out.println("type your coordinates");
+            System.out.println("****************************");
+            System.out.println("*   tour du joueur num: "+(player+1)+"  *");
+            System.out.println("****************************");
+            System.out.println("> please type your coordinates");
             x = sc.nextInt();
             y = sc.nextInt();
             b=CheckCoord(x,y,h,w,gauffre);
             while(!b){
-                System.out.println("retype correct coordinates");
+                System.out.println("> please retype correct coordinates");
                 x = sc.nextInt();
                 y = sc.nextInt();
                 b=CheckCoord(x,y,h,w,gauffre);
             }
             if(x==0 && y==0){
-                System.out.println("partie terminée");
+                
+                System.out.println("> partie terminée");
+                System.out.println("/**************************\\");
+                System.out.println("*   GAGNANT : JOUEUR"+((gagnant+1)%2 + 1)+"       *");
+                System.out.println("\\**************************/");
                 exit(0);
             }else{
+                gagnant = (gagnant+1)%2;
                 Coup(gauffre,x,y);
             }
         }
@@ -80,16 +88,9 @@ public class Play {
                 gauffre[i][j]=false;
             }
         }
+        player = (player+1)%2;
         Affichages affichage = Affichages.getInstance();
         affichage.DrawWaffle(gauffre);
-    }
-    
-    
-    /////////////// TO DO \\\\\\\\\\\\\\\\
-    //Affichage -> afficher joueur       |
-    //gagnant                            | 
-    //resize (+,-)                       |
-    //////////////////////////////////////
-    
+    } 
     
 }
