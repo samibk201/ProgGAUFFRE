@@ -6,6 +6,7 @@
 
 
 import Moteur.Affichages;
+import Moteur.Play;
 import java.util.Scanner;
 
 /**
@@ -15,11 +16,15 @@ import java.util.Scanner;
 public class Gauffre {
     
     public static void main(String[] args) {
-        
+       
+        Affichages affichage = Affichages.getInstance();
+        Play play = Play.getInstance();
         //afficher la gauffre
-        Affichages.DrawWaffle();
-
-        return;
+        int height=affichage.getHeight();
+        int width=affichage.getWidth();
+        boolean[][] gauffre = play.InitTabGauffre(height, width);
+        affichage.DrawWaffle(gauffre);
+        play.Jouer(gauffre);
         
     }
     

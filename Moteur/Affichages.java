@@ -15,33 +15,59 @@ import java.util.Scanner;
  */
 public class Affichages {
     
+    private int height;
+    private int width;
+    static Affichages affichages=null;
+
+    private Affichages() {
+        super();
+    }
+    
+    public static Affichages getInstance(){
+        if(Affichages.affichages==null){
+            Affichages.affichages = new Affichages();
+            Scanner sc = new Scanner(System.in);
+            Affichages.affichages.height=CheckHight(sc);
+            Affichages.affichages.width=CheckWidth(sc);          
+        }
+        return Affichages.affichages; 
+        //recuperation de la taille de la gauffre
+        
+        
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+    
     //affiche la gauffre
     //param : entier h -> hauteur, entier w -> largeur
     //retour : void
-    public static void DrawWaffle(){
+    public void DrawWaffle(boolean[][] gauffre){
         
+     
+        //boolean[][] gauffre = Play.InitTabGauffre(h, w);
         
-        int h, w;
-        //recuperation de la taille de la gauffre
-        
-        Scanner sc = new Scanner(System.in);
-        
-        h=CheckHight(sc);
-        w=CheckWidth(sc);
-        
-        for (int j=0; j<w; j++)
+        for (int j=0; j<width; j++)
                 System.out.print("+---");
             System.out.println("+");
-        for(int i=0; i<h; i++){
+        for(int i=0; i<height; i++){
             System.out.print("");
-            for(int j=0; j<w; j++){
+            for(int j=0; j<width; j++){
                 if(i==0 && j==0)
                     System.out.print("| O ");
                 else
-                    System.out.print("|   ");
+                    if(gauffre[i][j])
+                        System.out.print("|   ");
+                    else
+                        System.out.print("| X ");
             }
             System.out.println("|");
-            for (int j=0; j<w; j++)
+            for (int j=0; j<width; j++)
                 System.out.print("+---");
             System.out.println("+");
         }
