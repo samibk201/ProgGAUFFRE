@@ -39,40 +39,61 @@ public class Play {
         return gauffre;
     }
     
-    public boolean CheckCoord(int x, int y,int h, int w, boolean[][] gauffre){
-        if ( x<0 || y<0 || x>=h || y>=w)
+    public boolean CheckCoord(String x, String y,int h, int w, boolean[][] gauffre){
+        int v1;
+        int v2;
+        
+        try {
+            v1 = Integer.parseInt(x);
+        }catch(NumberFormatException e) {
+            System.out.println("> line input is not a valid integer");
+            return false;
+        }
+        
+        try {
+            v2 = Integer.parseInt(y);
+        }catch(NumberFormatException e) {
+            System.out.println("> column input is not a valid integer");
+            return false;
+        }
+        
+        
+        if ( v1<0 || v2<0 || v1>=h || v2>=w)
             return false;  
-        return gauffre[x][y];  
+        return gauffre[v1][v2];  
     }
     
+    @SuppressWarnings("UnusedAssignment")
     public void Jouer(boolean[][] gauffre){
         Affichages affichage = Affichages.getInstance();
         Scanner sc = new Scanner(System.in);
+        String x1,y1;
         int x,y;
         while(gauffre[0][0]){
-            //int x=-1,y=-1;
             int gagnant = player;
             boolean b;
             int h=affichage.getHeight(), w=affichage.getWidth(); 
             System.out.println("****************************");
-            System.out.println("*   tour du joueur num: "+(player+1)+"  *");
+            System.out.println("|   tour du joueur num: "+(player+1)+"  |");
             System.out.println("****************************");
             System.out.println("> please type your coordinates");
-            x = sc.nextInt();
-            y = sc.nextInt();
-            b=CheckCoord(x,y,h,w,gauffre);
+            x1 = sc.next();
+            y1 = sc.next();
+            b=CheckCoord(x1,y1,h,w,gauffre);
             while(!b){
-                System.out.println("> please retype correct coordinates");
-                x = sc.nextInt();
-                y = sc.nextInt();
-                b=CheckCoord(x,y,h,w,gauffre);
+                System.out.println("> please retype valid coordinates");
+                x1 = sc.next();
+                y1 = sc.next();
+                b=CheckCoord(x1,y1,h,w,gauffre);
             }
+            x = Integer.parseInt(x1);
+            y = Integer.parseInt(y1);
             if(x==0 && y==0){
                 
                 System.out.println("> partie terminée");
-                System.out.println("/**************************\\");
-                System.out.println("*   GAGNANT : JOUEUR"+((gagnant+1)%2 + 1)+"       *");
-                System.out.println("\\**************************/");
+                System.out.println("############################");
+                System.out.println("#   GAGNANT : JOUEUR"+((gagnant+1)%2 + 1)+"      #");
+                System.out.println("############################");
                 exit(0);
             }else{
                 gagnant = (gagnant+1)%2;
