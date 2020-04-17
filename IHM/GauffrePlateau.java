@@ -4,19 +4,27 @@ import java.awt.event.MouseListener;
 import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.swing.*;
+
+import Moteur.Play;
+
 import java.io.IOException;
 import java.io.File;
 
 public class GauffrePlateau extends JPanel implements MouseListener{
-	private Image poison, gaufre;
-	private int nbLignes , nbColonnes ;
+	private Image poison, gaufre, vide;
+	private boolean [][] tabGauffre; 
+	private int largeur , hauteur ;
 	private int largeurCase = 100;
 
-	public GauffrePlateau(int l, int c) {
+	public GauffrePlateau(int l, int h) {
 		poison = lisImage("poison.jpg");
 		gaufre = lisImage("gauffre_2.png");
-		this.nbLignes = l;
-		this.nbColonnes = c;
+		this.largeur = l;
+		this.hauteur = h;
+		Play play = Play.getInstance();
+		this.tabGauffre = play.InitTabGauffre(this.largeur, this.hauteur);
+		
+		this.addMouseListener(this);
 	}
 	
 	
@@ -33,28 +41,36 @@ public class GauffrePlateau extends JPanel implements MouseListener{
 
 
 
-	public int getNbLignes() {
-		return nbLignes;
+	public int getLargeur() {
+		return largeur;
+	}
+	
+
+
+
+	public void setLargeur(int largeur) {
+		this.largeur = largeur;
 	}
 
 
 
-	public void setNbLignes(int nbLignes) {
-		this.nbLignes = nbLignes;
+	public int getHauteur() {
+		return hauteur;
 	}
 
 
 
-	public int getNbColonnes() {
-		return nbColonnes;
+	public void setHauteur(int hauteur) {
+		this.hauteur = hauteur;
 	}
+	
+	
 
 
 
-	public void setNbColonnes(int nbColonnes) {
-		this.nbColonnes = nbColonnes;
+	public boolean[][] getTabGauffre() {
+		return tabGauffre;
 	}
-
 
 
 	private Image lisImage(String nom) {
@@ -74,31 +90,24 @@ public class GauffrePlateau extends JPanel implements MouseListener{
 
 	public void paintComponent(Graphics g) {
 		Graphics2D g2D = (Graphics2D) g;
-		
-		/*int largeur = getSize().width;
-		System.out.println("largeur = " + largeur);
-		int hauteur = getSize().height;
-		System.out.println("hauteur " + hauteur);
-		int largeurCase = largeur / nbLignes;
-		System.out.println("largeur case = " + largeurCase);
-		int hauteurCase = hauteur / nbLignes;
-		System.out.println("hauteur case = " + hauteurCase);
-
-
-		largeurCase = hauteurCase = Math.min(largeurCase, hauteurCase);
-		System.out.println("largeur hauteur case = " + hauteurCase);
-		//g2D.clearRect(0, 0, largeur, hauteur);*/
-
-		for (int j = 0; j < this.nbColonnes; j++) {
-			for (int i = 0; i < this.nbLignes; i++) {
+		for (int i = 0; i < this.largeur; i++) {
+			for (int j = 0; j < this.hauteur; j++) {
+				//System.out.println();
 				int x, y;
 				y = j * largeurCase;
 				x = i * largeurCase;
-				
-				if (i == 0 && j == 0) {
-					tracer(g2D, poison, x, y, largeurCase, largeurCase);
-				} else {
-					tracer(g2D, gaufre, x, y, largeurCase, largeurCase);
+				if(Play.getInstance().CheckCoord(String.valueOf(i), String.valueOf(j), largeur, hauteur, tabGauffre) == true){
+					if (i == 0 && j == 0) {
+						tracer(g2D, poison, x, y, largeurCase, largeurCase);
+					} else {
+						tracer(g2D, gaufre, x, y, largeurCase, largeurCase);
+					}
+				}else {
+					if (i == 0 && j == 0) {
+						tracer(g2D, poison, x, y, largeurCase, largeurCase);
+					} else {
+						tracer(g2D, vide, x, y, largeurCase, largeurCase);
+					}
 				}
 			}
 		}
@@ -107,9 +116,14 @@ public class GauffrePlateau extends JPanel implements MouseListener{
 
 
 	@Override
-	public void mouseClicked(MouseEvent arg0) {
+	public void mouseClicked(MouseEvent event) {
 		// TODO Auto-generated method stub
-		
+			vide = lisImage("vide.png");
+			int x = event.getX()/ largeurCase;
+			int y = event.getY()/ largeurCase;
+			
+			Play.getInstance().Coup(tabGauffre, x, y);
+			this.repaint();
 	}
 
 
@@ -131,8 +145,9 @@ public class GauffrePlateau extends JPanel implements MouseListener{
 
 
 	@Override
-	public void mousePressed(MouseEvent arg0) {
+	public void mousePressed(MouseEvent event) {
 		// TODO Auto-generated method stub
+		
 		
 	}
 
