@@ -29,17 +29,17 @@ public class Play {
         //recuperation de la taille de la gauffre        
     }
     
-    public boolean[][] InitTabGauffre(int h, int w){
-        boolean [][] gauffre = new boolean[h][w];
-        for(int i=0; i<h; i++){
-            for(int j=0; j<w; j++){
+    public boolean[][] InitTabGauffre(int w, int h){
+        boolean [][] gauffre = new boolean[w][h];
+        for(int i=0; i<w; i++){
+            for(int j=0; j<h; j++){
                 gauffre[i][j]=true;
             }
         }
         return gauffre;
     }
     
-    public boolean CheckCoord(String x, String y,int h, int w, boolean[][] gauffre){
+    public boolean CheckCoord(String x, String y,int w ,int h, boolean[][] gauffre){
         int v1;
         int v2;
         
@@ -58,7 +58,7 @@ public class Play {
         }
         
         
-        if ( v1<0 || v2<0 || v1>=h || v2>=w)
+        if ( v1<0 || v2<0 || v1>=w || v2>=h)
             return false;  
         return gauffre[v1][v2];  
     }
@@ -79,12 +79,12 @@ public class Play {
             System.out.println("> please type your coordinates");
             x1 = sc.next();
             y1 = sc.next();
-            b=CheckCoord(x1,y1,h,w,gauffre);
+            b=CheckCoord(x1,y1,w,h,gauffre);
             while(!b){
                 System.out.println("> please retype valid coordinates");
                 x1 = sc.next();
                 y1 = sc.next();
-                b=CheckCoord(x1,y1,h,w,gauffre);
+                b=CheckCoord(x1,y1,w,h,gauffre);
             }
             x = Integer.parseInt(x1);
             y = Integer.parseInt(y1);
@@ -110,8 +110,8 @@ public class Play {
             }
         }
         player = (player+1)%2;
-        Affichages affichage = Affichages.getInstance();
-        affichage.DrawWaffle(gauffre);
+        //Affichages affichage = Affichages.getInstance();
+        //affichage.DrawWaffle(gauffre);
     } 
     
 }
