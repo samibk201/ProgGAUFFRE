@@ -112,6 +112,11 @@ public class Play {
         player = (player+1)%2;
         //Affichages affichage = Affichages.getInstance();
         //affichage.DrawWaffle(gauffre);
-    } 
+    }
+
+	public int getPlayer() {
+		return player;
+	}
+    
     
 }
