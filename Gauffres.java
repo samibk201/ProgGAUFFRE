@@ -4,15 +4,29 @@
  * and open the template in the editor.
  */
 
+public class Gauffre {
+	
+	public static void main (String [] args) {
+		InterfaceGraphique ig = new InterfaceGraphique ();
+		ig.run();
+	}
+}
 
+
+
+
+
+
+
+//////////////////////////////////////////////
+///         TO RUN WITHOUT GRAPHIC         ///
+//////////////////////////////////////////////
+/*
 import Moteur.Affichages;
 import Moteur.Play;
 import java.util.Scanner;
 
-/**
- *
- * @author Sami
- */
+
 public class Gauffres {
     
     public static void main(String[] args) {
@@ -29,3 +43,4 @@ public class Gauffres {
     }
     
 }
+*/
