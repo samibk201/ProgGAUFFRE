@@ -18,7 +18,7 @@ public class GauffrePlateau extends JPanel implements MouseListener{
 	private int clicX, clicY;
 
 	public GauffrePlateau(int l, int h) {
-		poison = lisImage("poison.jpg");
+		poison = lisImage("poison.png");
 		gaufre = lisImage("gauffre_2.png");
 		this.largeur = l;
 		this.hauteur = h;
