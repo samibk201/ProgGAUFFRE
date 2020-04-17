@@ -75,7 +75,7 @@ public class InterfaceGraphique extends JFrame implements Runnable {
 		while (g[0][0]) {
 			gagnant = Play.getInstance().getPlayer();
 			if (x == 0 && y == 0) {
-				gagnant = ((gagnant + 1) % 2 + 1);
+				gagnant = gagnant + 1;
 				this.labelPartie.setText("AU JOUEUR " +  gagnant + "");
 			
 			} else {
@@ -83,7 +83,7 @@ public class InterfaceGraphique extends JFrame implements Runnable {
 				
 			}
 		}
-		gagnant = ((gagnant + 1) % 2 + 1);
+		gagnant = gagnant + 1;
 		
 		this.labelPartie.setText("Partie terminée : JOUEUR " + gagnant + " VAINQUEUR ");
 	}
