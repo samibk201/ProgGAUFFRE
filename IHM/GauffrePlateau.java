@@ -15,6 +15,7 @@ public class GauffrePlateau extends JPanel implements MouseListener{
 	private boolean [][] tabGauffre; 
 	private int largeur , hauteur ;
 	private int largeurCase = 100;
+	private int clicX, clicY;
 
 	public GauffrePlateau(int l, int h) {
 		poison = lisImage("poison.jpg");
@@ -65,6 +66,19 @@ public class GauffrePlateau extends JPanel implements MouseListener{
 	}
 	
 	
+	
+	
+	
+
+	public int getClicX() {
+		return clicX;
+	}
+
+
+
+	public int getClicY() {
+		return clicY;
+	}
 
 
 
@@ -119,10 +133,10 @@ public class GauffrePlateau extends JPanel implements MouseListener{
 	public void mouseClicked(MouseEvent event) {
 		// TODO Auto-generated method stub
 			vide = lisImage("vide.png");
-			int x = event.getX()/ largeurCase;
-			int y = event.getY()/ largeurCase;
+			clicX = event.getX()/ largeurCase;
+			clicY = event.getY()/ largeurCase;
 			
-			Play.getInstance().Coup(tabGauffre, x, y);
+			Play.getInstance().Coup(tabGauffre, clicX, clicY);
 			this.repaint();
 	}
 
